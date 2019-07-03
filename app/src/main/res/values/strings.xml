@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Синхранизация данных</string>
+    <string name="textButtonSynchronization">Синхронизация</string>
+    <string name="textViewAfternoon">Afternoon</string>
+    <string name="textViewEvening">Evening</string>
+    <string name="textViewMorning">Morning</string>
+</resources>
