@@ -7,10 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int MORNING_START_TIME_HOUR = 6;
+    private static final int AFTERNOON_START_TIME_HOUR = 14;
+    private static final int AFTERNOON_STOP_TIME_HOUR = 15;
+    private static final int TIME_MINUTE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +28,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SYNC);
 
-                int hour = Integer.parseInt(new SimpleDateFormat("HH").format(new Date())) ;
-                int minut = Integer.parseInt(new SimpleDateFormat("mm").format(new Date()));
+                int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+                int minut = Calendar.getInstance().get(Calendar.MINUTE);
 
-                if (((hour > 6) && (hour < 14)) || ((hour == 14) && (minut == 0)))
+                if (((hour > MORNING_START_TIME_HOUR) && (hour < AFTERNOON_START_TIME_HOUR)) ||
+                        ((hour == AFTERNOON_START_TIME_HOUR) && (minut == TIME_MINUTE))) {
                     intent.setData(Uri.parse("http://morning"));
-                if (((hour == 14) && (minut != 0)) || ((hour == 15) && (minut == 0)))
+                } else if (((hour == AFTERNOON_START_TIME_HOUR) && (minut != TIME_MINUTE)) ||
+                        ((hour == AFTERNOON_STOP_TIME_HOUR) && (minut == TIME_MINUTE))) {
                     intent.setData(Uri.parse("http://afternoon"));
-                if (((hour == 15) && (minut != 0)) || ((hour > 15) || (hour < 6)) || ((hour == 6) && (minut == 00)))
+                } else if (((hour == AFTERNOON_STOP_TIME_HOUR) && (minut != TIME_MINUTE)) ||
+                        ((hour > AFTERNOON_STOP_TIME_HOUR) || (hour < MORNING_START_TIME_HOUR)) ||
+                        ((hour == MORNING_START_TIME_HOUR) && (minut == TIME_MINUTE))) {
                     intent.setData(Uri.parse("http://evening"));
+                }
 
                 startActivity(intent);
             }
