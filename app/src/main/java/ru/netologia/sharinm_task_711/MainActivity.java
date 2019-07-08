@@ -31,15 +31,11 @@ public class MainActivity extends AppCompatActivity {
                 int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
                 int minut = Calendar.getInstance().get(Calendar.MINUTE);
 
-                if (((hour > MORNING_START_TIME_HOUR) && (hour < AFTERNOON_START_TIME_HOUR)) ||
-                        ((hour == AFTERNOON_START_TIME_HOUR) && (minut == TIME_MINUTE))) {
+                if ((hour > MORNING_START_TIME_HOUR) && (hour < AFTERNOON_START_TIME_HOUR)) {
                     intent.setData(Uri.parse("http://morning"));
-                } else if (((hour == AFTERNOON_START_TIME_HOUR) && (minut != TIME_MINUTE)) ||
-                        ((hour == AFTERNOON_STOP_TIME_HOUR) && (minut == TIME_MINUTE))) {
+                } else if ((hour >= AFTERNOON_START_TIME_HOUR) || (hour <= AFTERNOON_STOP_TIME_HOUR)) {
                     intent.setData(Uri.parse("http://afternoon"));
-                } else if (((hour == AFTERNOON_STOP_TIME_HOUR) && (minut != TIME_MINUTE)) ||
-                        ((hour > AFTERNOON_STOP_TIME_HOUR) || (hour < MORNING_START_TIME_HOUR)) ||
-                        ((hour == MORNING_START_TIME_HOUR) && (minut == TIME_MINUTE))) {
+                } else if ((hour > AFTERNOON_STOP_TIME_HOUR) || (hour < MORNING_START_TIME_HOUR)) {
                     intent.setData(Uri.parse("http://evening"));
                 }
 
