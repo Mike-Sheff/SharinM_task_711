@@ -13,8 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MORNING_START_TIME_HOUR = 6;
     private static final int AFTERNOON_START_TIME_HOUR = 14;
-    private static final int AFTERNOON_STOP_TIME_HOUR = 15;
-    private static final int TIME_MINUTE = 0;
+    private static final int EVENING_START_TIME_HOUR = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if ((hour > MORNING_START_TIME_HOUR) && (hour < AFTERNOON_START_TIME_HOUR)) {
                     intent.setData(Uri.parse("http://morning"));
-                } else if ((hour >= AFTERNOON_START_TIME_HOUR) || (hour <= AFTERNOON_STOP_TIME_HOUR)) {
+                } else if ((hour >= AFTERNOON_START_TIME_HOUR) && (hour <= EVENING_START_TIME_HOUR)) {
                     intent.setData(Uri.parse("http://afternoon"));
-                } else if ((hour > AFTERNOON_STOP_TIME_HOUR) || (hour < MORNING_START_TIME_HOUR)) {
+                } else if ((hour > EVENING_START_TIME_HOUR) || (hour < MORNING_START_TIME_HOUR)) {
                     intent.setData(Uri.parse("http://evening"));
                 }
 
